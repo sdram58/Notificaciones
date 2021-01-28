@@ -9,11 +9,15 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     PendingIntent siPending, noPending;
     private static final String CHANNEL_ID = "NOTIFICACION";
     public static final int NOTIFICACION_ID = 0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,5 +114,18 @@ public class MainActivity extends AppCompatActivity {
         builder.addAction(R.drawable.ic_launcher_background,"No", noPending);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         notificationManagerCompat.notify(NOTIFICACION_ID,builder.build());
+    }
+
+    public class MyBroadcastReceiver extends BroadcastReceiver {
+        private static final String TAG = "MyBroadcastReceiver";
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Action: " + intent.getAction() + "\n");
+            sb.append("URI: " + intent.toUri(Intent.URI_INTENT_SCHEME).toString() + "\n");
+            String log = sb.toString();
+            Log.d(TAG, log);
+            Toast.makeText(context, log, Toast.LENGTH_LONG).show();
+        }
     }
 }
