@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int PENDING_REQUEST = 5;
+    private static final int PENDING_REQUEST = 1;
     PendingIntent pendingIntent;
     PendingIntent siPending, noPending;
     private static final String CHANNEL_ID = "NOTIFICACION";
